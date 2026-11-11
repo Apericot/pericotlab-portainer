@@ -1,0 +1,26 @@
+
+services:
+  portainer:
+    image: portainer/portainer-ce:lts
+    container_name: portainer
+    restart: unless-stopped
+
+    ports:
+      - "127.0.0.1:9443:9443"
+
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+      - portainer_data:/data
+
+    networks:
+      - default
+      - proxy
+
+volumes:
+  portainer_data:
+    name: pericotlab_portainer_data
+
+networks:
+  proxy:
+    external: true
+    name: proxy
